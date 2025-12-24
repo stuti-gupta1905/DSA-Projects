@@ -1,7 +1,7 @@
 # Graph Algorithms Projects
 
 This folder contains graph-based Data Structures and Algorithms projects
-implemented in C++ as part of SDE preparation.
+implemented in C++.
 
 Planned topics:
 - BFS and DFS
