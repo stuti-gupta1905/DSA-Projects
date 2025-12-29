@@ -24,8 +24,8 @@ public:
         blocked[{v,u}]=true;
     }
 
-    vector<int> dijkstra(int src, int dest){
-        vector<int> dist(V, INT_MAX);
+    pair<int, vector<int>> dijkstra(int src, int dest){
+        vector<long long> dist(V, INT_MAX);
         vector<int> parent(V,-1);
         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq; //stores //dist[v],v
 
@@ -57,7 +57,7 @@ public:
 
         // Impossible path
         if(dist[dest]==INT_MAX){
-            return {};
+            return {INT_MAX, {}};
         }
 
         //Path Reconstruction
@@ -67,7 +67,7 @@ public:
         }
         reverse(path.begin(),path.end());
 
-        return path;
+        return {dist[dest],path};
     }
 
     void bfsHelper(int src, vector<bool>& vis){
@@ -129,5 +129,43 @@ int main(){
 
     // 0-Varanasi 1-Delhi 2-Mumbai 3-Banglore 4-Indore 5-Hydrabad
     g.addEdge(0,1,871); //src, dest, distance in kilometers
-    g.addEdge(0,1,871);
+    g.addEdge(1,2,1387);
+    g.addEdge(1,4,774);
+    g.addEdge(2,3,1001);
+    g.addEdge(3,4,1357);
+    g.addEdge(2,4,604);
+    g.addEdge(2,5,713);
+
+    cout<<"Normal Route : Varanasi -> Indore"<<endl;
+    auto path=g.dijkstra(0,4);
+    if(path.second.empty()){
+        cout<<"No route available!"<<endl;
+    }
+    else{
+        for(int val : path.second){
+            cout<<val<<" ";
+        }
+        cout<<"\nTotal distance (km): "<<path.first<<endl;
+    }
+
+    cout<<"Blocking road : Delhi -> Indore"<<endl;
+    g.blockRoad(1,4);
+
+    cout<<"Redirected route : Varanasi -> Indore"<<endl;
+    path=g.dijkstra(0,4);
+    if(path.second.empty()){
+        cout<<"No route available!"<<endl;
+    }
+    else{
+        for(int val : path.second){
+            cout<<val<<" ";
+        }
+        cout<<"\nTotal distance (km): "<<path.first<<endl;
+    }
+
+    cout<<"Full route through bfs and dfs respectively"<<endl;
+    g.bfs(0);
+    g.dfs(0);
+
+    return 0;
 }
