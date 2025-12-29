@@ -6,10 +6,13 @@ public:
     int V;
     list<pair<int,int>> *l;
     map<pair<int,int>, bool> blocked;
+    unordered_map<string,int> cityTold;
+    vector<string> idToCity;
 
     Graph(int V){
         this->V=V;
         l=new list<pair<int,int>> [V];
+        idToCity.resize(V);
     }
 
     void addEdge(int u, int v, int wt){
@@ -17,6 +20,11 @@ public:
         l[v].push_back({u,wt});
         blocked[{u,v}]=false; 
         blocked[{v,u}]=false; 
+    }
+
+    void addCity(int id, string city){
+        cityTold[city]=id;
+        idToCity[id]=city;
     }
 
     void blockRoad(int u, int v){
@@ -126,8 +134,15 @@ public:
 // Implementation example
 int main(){
     Graph g(6);
-
     // 0-Varanasi 1-Delhi 2-Mumbai 3-Banglore 4-Indore 5-Hydrabad
+
+    g.addCity(0,"Varanasi");
+    g.addCity(1,"Delhi");
+    g.addCity(2,"Mumbai");
+    g.addCity(3,"Banglore");
+    g.addCity(4,"Indore");
+    g.addCity(5,"Hydrabad");
+
     g.addEdge(0,1,871); //src, dest, distance in kilometers
     g.addEdge(1,2,1387);
     g.addEdge(1,4,774);
@@ -143,7 +158,7 @@ int main(){
     }
     else{
         for(int val : path.second){
-            cout<<val<<" ";
+            cout<<g.idToCity[val]<<" ";
         }
         cout<<"\nTotal distance (km): "<<path.first<<endl;
     }
@@ -158,7 +173,7 @@ int main(){
     }
     else{
         for(int val : path.second){
-            cout<<val<<" ";
+            cout<<g.idToCity[val]<<" ";
         }
         cout<<"\nTotal distance (km): "<<path.first<<endl;
     }
