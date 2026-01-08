@@ -5,10 +5,10 @@ A graph-based route planner that simulates the core navigation logic by modeling
 The project computes the shortest route and total travel distance
 using Dijkstra's algorithm, with support for dynamic road blocking.
 
-Features :-
-Cities represented as graph nodes
-Roads represented as weighted edges
-Shortest path computation
-Path reconstruction
-Dynamic road blocking
-Traversal using BFS and DFS
+Features :
+Cities represented as graph nodes,
+Roads represented as weighted edges,
+Shortest path computation,
+Path reconstruction,
+Dynamic road blocking,
+Traversal using BFS and DFS.
